@@ -10,25 +10,41 @@
 </head>
 
 <body>
-    <div id="canvas"></div>
-    <script>
-        canvas.onmousemove = (e) => {
-            console.log(e.clientX)
-            console.log(e.clientY)
 
-            let div = document.createElement('div')
-            div.style.position = 'absolute'
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY + 'px'
-            // div.style.border = '1px solid #008c8c'
-            div.style.width = '6px'
-            div.style.height = '6px'
-            div.style.marginLeft = '-3px'
-            div.style.marginTop = '-3px'
-            div.style.borderRadius = '50%'
-            div.style.backgroundColor = '#008c8c'
-            canvas.appendChild(div)
+    <canvas id="canvas"></canvas>
+    <script>
+
+        let canvas = document.getElementById('canvas');
+        // 画线
+
+        canvas.width = document.documentElement.clientWidth
+        canvas.height = document.documentElement.clientHeight
+        // 设置画布大小为文档大小
+
+
+        let ctx = canvas.getContext('2d');
+
+        let sg = false;
+        canvas.onmousedown = () => {
+            sg = true
         }
+        ctx.fillStyle = '#008c8c';
+        // ctx.strokeStyle = 'none'
+        canvas.onmousemove = (e) => {
+            if (sg === true) {
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI);
+                // ctx.stroke();
+                ctx.fill();
+            } else {
+                console.log('noting happening')
+            }
+        }
+
+        canvas.onmouseup = () => {
+            sg = false
+        }
+
     </script>
 </body>
 
